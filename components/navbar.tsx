@@ -6,7 +6,7 @@ import { Poppins } from "next/font/google";
 import { Sparkles } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-// import { MobileSidebar } from "@/components/mobile-sidebar";
+import { MobileSidebar } from "@/components/mobile-sidebar";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 // import { useProModal } from "@/hooks/use-pro-modal";
@@ -23,7 +23,7 @@ export const Navbar = ({ isPro }: NavbarProps) => {
   return (
     <div className="fixed z-50 flex items-center justify-between w-full h-16 px-4 py-2 border-b border-primary/10 bg-secondary">
       <div className="flex items-center">
-        {/* <MobileSidebar isPro={isPro} /> */}
+        <MobileSidebar isPro={isPro} />
         <Link href="/">
           <h1
             className={cn(
@@ -31,7 +31,7 @@ export const Navbar = ({ isPro }: NavbarProps) => {
               font.className
             )}
           >
-            AI Chatbot
+            companion.ai
           </h1>
         </Link>
       </div>
