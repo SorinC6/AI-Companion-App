@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../../../../components/ui/select";
+import { Textarea } from "../../../../../../components/ui/textarea";
 
 interface CompanionFormProps {
   initialData: Companion | null;
@@ -96,7 +97,7 @@ const CompanionForm = ({ categories, initialData }: CompanionFormProps) => {
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 pb-5 md:grid-cols-2">
             <FormField
               name="name"
               control={form.control}
@@ -172,6 +173,37 @@ const CompanionForm = ({ categories, initialData }: CompanionFormProps) => {
               )}
             />
           </div>
+          <div className="w-full space-y-2">
+            <div>
+              <h3 className="text-lg font-medium">Configuration</h3>
+              <p className="text-sm text-muted-foreground">
+                Details instruction for AI behaviour
+              </p>
+            </div>
+            <Separator className="bg-primary/10" />
+          </div>
+          <FormField
+            name="instructions"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="col-span-2 md:col-span-1">
+                <FormLabel>Instructions</FormLabel>
+                <FormControl>
+                  <Textarea
+                    disabled={isLoading}
+                    placeholder="Elon Musk"
+                    className="resize-none bg-background"
+                    rows={7}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+                <FormDescription>
+                  This is how your AI companion will be named
+                </FormDescription>
+              </FormItem>
+            )}
+          />
         </form>
       </Form>
     </div>
