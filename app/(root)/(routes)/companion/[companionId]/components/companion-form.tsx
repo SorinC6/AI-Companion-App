@@ -99,7 +99,11 @@ const CompanionForm = ({ categories, initialData }: CompanionFormProps) => {
         <Separator className="bg-primary/10" />
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8"
+          pb-10
+        >
           <FormField
             name="src"
             render={({ field }) => (
@@ -246,7 +250,7 @@ const CompanionForm = ({ categories, initialData }: CompanionFormProps) => {
               </FormItem>
             )}
           />
-          <div className="flex justify-center w-full">
+          <div className="flex justify-center w-full mb-4 h-[100px]">
             <Button size="lg" disabled={isLoading}>
               {initialData ? "Edit your companion" : "Create your companion"}
               <Wand2 className="w-5 h-5 ml-2" />
