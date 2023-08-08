@@ -26,6 +26,9 @@ import {
 import { Textarea } from "../../../../../../components/ui/textarea";
 import { Button } from "../../../../../../components/ui/button";
 import { Wand2 } from "lucide-react";
+import axios from "axios";
+import { useToast } from "../../../../../../components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const PREAMBLE = `You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are ambitious and forward-thinking, with a touch of wit. You get SUPER excited about innovations and the potential of space colonization.
 `;
@@ -70,6 +73,9 @@ const formSchema = z.object({
 });
 
 const CompanionForm = ({ categories, initialData }: CompanionFormProps) => {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -86,6 +92,26 @@ const CompanionForm = ({ categories, initialData }: CompanionFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+    if (initialData) {
+      // update companion
+      await axios.patch(`/api/companion/${initialData.id}`, values);
+    } else {
+      // create companion
+      await axios.post(`/api/companion`, values);
+    }
+    toast({
+      description: "Success!",
+    });
+    router.refresh();
+    router.push("/");
+    try {
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Error, something went wrong, please contact support",
+      });
+    }
   };
   return (
     <div className="h-full max-w-3xl p-4 mx-auto space-y-2">
@@ -191,6 +217,7 @@ const CompanionForm = ({ categories, initialData }: CompanionFormProps) => {
                   <FormDescription>
                     Select a category for your AI
                   </FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />
