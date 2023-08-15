@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import { ChatHeader } from "../../../../../../components/chat-header";
 import { useRouter } from "next/navigation";
 import { useCompletion } from "ai/react";
+import { ChatForm } from "../../../../../../components/chat-form";
 
 type ChatClientProps = {
   companion: Companion & {
@@ -50,7 +51,12 @@ export const ChatClient = ({ companion }: ChatClientProps) => {
     <div className="flex flex-col h-full p-4 space-y2">
       <ChatHeader companion={companion} />
       <div>Messages to add</div>
-      <ChatForm />
+      <ChatForm
+        isLoading={isLoading}
+        input={input}
+        handleInputChange={handleInputChange}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };
