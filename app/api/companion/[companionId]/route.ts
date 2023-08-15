@@ -46,3 +46,34 @@ export async function PATCH(
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { companionId: string } }
+) {
+  try {
+    const user = await currentUser();
+
+    if (!params.companionId) {
+      return new NextResponse("Companion Id required", { status: 400 });
+    }
+
+    if (!user || !user?.id || !user?.firstName) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    // check subscription in the future
+
+    const companion = await prismadb.companion.delete({
+      where: {
+        userId: user.id,
+        id: params.companionId,
+      },
+    });
+
+    return NextResponse.json(companion);
+  } catch (error) {
+    console.log("[COMPANION DELETE ERROR]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
