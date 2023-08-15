@@ -6,6 +6,7 @@ import { ChatHeader } from "../../../../../../components/chat-header";
 import { useRouter } from "next/navigation";
 import { useCompletion } from "ai/react";
 import { ChatForm } from "../../../../../../components/chat-form";
+import { ChatMessages } from "../../../../../../components/chat-messages";
 
 type ChatClientProps = {
   companion: Companion & {
@@ -50,7 +51,11 @@ export const ChatClient = ({ companion }: ChatClientProps) => {
   return (
     <div className="flex flex-col h-full p-4 space-y2">
       <ChatHeader companion={companion} />
-      <div>Messages to add</div>
+      <ChatMessages
+        companion={companion}
+        isLoading={isLoading}
+        messages={messages}
+      />
       <ChatForm
         isLoading={isLoading}
         input={input}
