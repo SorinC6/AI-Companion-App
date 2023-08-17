@@ -2,10 +2,10 @@
 
 import { Companion } from "@prisma/client";
 import React from "react";
-import { ChatMessage } from "./chat-message";
+import { ChatMessage, ChatMessageProps } from "./chat-message";
 
 type ChatMessagesProps = {
-  messages: any[];
+  messages: ChatMessageProps[];
   companion: Companion;
   isLoading: boolean;
 };
@@ -23,11 +23,11 @@ export const ChatMessages = ({
         content={`Hello, I am ${companion.name} ${companion.description}`}
         isLoading={isLoading}
       />
-      <ChatMessage
+      {/* <ChatMessage
         role="user"
         content={`Hello, I am ${companion.name} ${companion.description}`}
         isLoading={isLoading}
-      />
+      /> */}
     </div>
   );
 };
